@@ -1,0 +1,16 @@
+<form class="mb-4">
+    <div class="form-group">
+        <label for="country">Selecciona el pais</label>
+        <select  [(ngModel)]="countrySelected" class="form-control" id="country" name="country" (change)="onCountryChange($event)" required >
+          <option *ngFor="let country of countriesList" [ngValue]="country">{{ country.name }}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="city">Selecciona la ciudad</label>
+        <select [(ngModel)]="citySelected" class="form-control" id="city" name="city" required (change)="onCityChange($event)" [disabled]="countrySelected.id == undefined">
+          <option *ngFor="let city of citiesList" [ngValue]="city">{{ city.name }}</option>
+        </select>
+    </div>
+</form>
+
+  

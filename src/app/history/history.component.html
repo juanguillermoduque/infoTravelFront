@@ -1,0 +1,42 @@
+<div class="container my-4">
+    <h2>Consulta Actual</h2>
+    <p><strong>País Seleccionado:</strong> {{country.name}}</p>
+    <p><strong>Ciudad Seleccionada:</strong> {{city.name}}</p>
+    <p><strong>Presupuesto:</strong> {{budget}} COP</p>
+    
+    <h2>Información del destino</h2>
+    <p><strong>La temperatura Actual de la ciudad es de:</strong> {{temperature}}</p>
+    <p><strong>La moneda de la ciudad es:</strong> {{moneyName}} - {{moneySymbol}}</p>
+    <p><strong>Tasa de Cambio:</strong> 1 COP = {{ exchangeRate }} {{ moneySymbol }}</p>
+    <p><strong>Presupuesto Convertido:</strong> {{ convertedBudget }} {{ moneySymbol }}</p>
+</div>
+
+<div *ngIf="history.length > 0" class="container my-4">
+    <h2>Historial de Consultas</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>País</th>
+                    <th>Ciudad</th>
+                    <th>Presupuesto</th>
+                    <th>Temperatura</th>
+                    <th>Moneda</th>
+                    <th>Tasa de Cambio</th>
+                    <th>Presupuesto Convertido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of history">
+                    <td>{{item.country}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.budget}} COP</td>
+                    <td>{{item.temperature}}</td>
+                    <td>{{item.moneyName}} - {{item.moneySymbol}}</td>
+                    <td>1 COP = {{ item.exchangeRate }} {{ item.moneySymbol }}</td>
+                    <td>{{ item.convertedBudget }} {{ item.moneySymbol }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

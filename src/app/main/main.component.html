@@ -1,0 +1,32 @@
+
+<div class="container mt-5">
+    <h1 class="mb-4">InfoTravel</h1>
+    
+    <div *ngIf="componentSelected.id == 0">
+        <app-place (validData)="nextValid($event)" (country)="setCountry($event)" (city)="setCity($event)"></app-place>
+    </div>
+
+    <div *ngIf="componentSelected.id == 1">
+        <app-budget (validData)="nextValid($event)" (data)="setDataBudget($event)"></app-budget>
+    </div>
+
+    <div *ngIf="componentSelected.id == 2">
+        <app-history [country]="countrySelected" [city]="citySelected" [budget]="budgetSelected"></app-history>
+    </div>
+    
+    <div class="d-flex justify-content-between mb-4">
+        <button [disabled]="!canNext" *ngIf="componentSelected.id != 2" type="button" class="btn btn-primary" (click)="nextStep()">
+            <i class="bi bi-arrow-right"></i>
+            <p class="d-inline mb-0">Siguiente</p>
+        </button>
+        
+        <button *ngIf="componentSelected.id != 0" type="button" class="btn btn-secondary" (click)="prevStep()">
+            <i class="bi bi-arrow-left"></i>
+            <p class="d-inline mb-0">Atrás</p>
+        </button>
+    </div>    
+</div>
+
+
+
+  

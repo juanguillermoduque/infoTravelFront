@@ -1,0 +1,6 @@
+<form class="mb-4">
+    <div class="form-group">
+        <label  for="budget">Ingrese el presupuesto con el que cuenta (pesos colombianos)</label>
+        <input (input)="onBudgetInput($event)" [(ngModel)]="budget" type="number" class="form-control" id="budget" name="budget" min="0" required>
+    </div>
+</form>
