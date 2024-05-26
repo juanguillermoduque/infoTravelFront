@@ -10,14 +10,18 @@ import { Country } from './models/country.interface';
 })
 export class PlaceComponent implements OnInit {
 
+  //Se definen las variables de salida que se van a enviar al componente padre
   @Output() validData = new EventEmitter<boolean>();
   @Output() city = new EventEmitter<City>();
   @Output() country = new EventEmitter<Country>();
 
+
+  //Se definen las variables que se van a mostrar en la vista
   public countriesList:Country[] = [];
   public citiesList: City[] = [];
   public countrySelected: Country = {} as Country;
   public citySelected: City = {} as City;
+
   constructor(
     private placeService: PlaceService
   ) { }
@@ -26,6 +30,7 @@ export class PlaceComponent implements OnInit {
     this.getCountriesList();
   }
 
+  //Se obtiene la lista de países
   public getCountriesList() {
     this.placeService.getAllCountries().subscribe(
       (data: Country[]) => {
@@ -34,6 +39,7 @@ export class PlaceComponent implements OnInit {
     );
   }
 
+  //Se obtiene la lista de ciudades por país
   public getCitiesList(){
     this.placeService.getCitiesByCountry(this.countrySelected.id).subscribe(
       (data: City[]) => {
@@ -42,10 +48,12 @@ export class PlaceComponent implements OnInit {
     );
   }
 
+  //Se valida cuando se selecciona un país para obtener las ciudades de ese país
   public onCountryChange(event: any): void {
     this.getCitiesList();
   }
 
+  //Se valida cuando se selecciona una ciudad para enviar los datos al componente padre
   public onCityChange(event: any): void {
     this.validData.emit(true);
     this.city.emit(this.citySelected)

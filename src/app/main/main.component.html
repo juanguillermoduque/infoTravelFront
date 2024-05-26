@@ -19,11 +19,17 @@
             <i class="bi bi-arrow-right"></i>
             <p class="d-inline mb-0">Siguiente</p>
         </button>
+
+        <button *ngIf="componentSelected.id == 2" type="button" class="btn btn-primary" (click)="goToFirstPage()">
+            <i class="bi bi-arrow-right"></i>
+            <p class="d-inline mb-0">Volver al inicio</p>
+        </button>
         
         <button *ngIf="componentSelected.id != 0" type="button" class="btn btn-secondary" (click)="prevStep()">
             <i class="bi bi-arrow-left"></i>
             <p class="d-inline mb-0">Atrás</p>
         </button>
+        
     </div>    
 </div>
 

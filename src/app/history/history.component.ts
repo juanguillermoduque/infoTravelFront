@@ -13,10 +13,12 @@ import { History } from './models/history.interface';
 })
 export class HistoryComponent implements OnInit {
 
+  //Se definen las variables de entrada que llegan desde el componente padre
   @Input() country: Country = {} as Country;
   @Input() city: City = {} as City;
   @Input() budget: number = 0;
 
+  //Se definen las variables que se van a mostrar en la vista
   temperature: string = "";
   moneyName: string = "";
   moneySymbol: string = "";
@@ -24,12 +26,14 @@ export class HistoryComponent implements OnInit {
   exchangeRate:number = 0;
   convertedBudget:number = 0;
 
+  //Se define la lista de historial, en caso de que exista historial
   history: History[] = [];
 
   constructor(
     private historyService: HistoryService
   ) { }
 
+  //Se obtiene la temperatura de la ciudad seleccionada desde la API de OpenWeatherMap
   async getTemperature() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city.apiName}&appid=${API_OPEN_WEATHER_MAP}`;
     try {
@@ -39,7 +43,9 @@ export class HistoryComponent implements OnInit {
       this.temperature = 'No se pudo obtener la temperatura';
     }
   }
-  
+
+
+  //Se obtiene la moneda del país seleccionado desde la API de restcountries
   async getMoney() {
     const url = 'https://restcountries.com/v3.1/name/';
     try {
@@ -59,6 +65,7 @@ export class HistoryComponent implements OnInit {
     }
   }
 
+  //Se obtiene la tasa de cambio de la moneda seleccionada desde la API de ExchangeRate
   async getExchangeMoney() {
     const exchangeRateApiUrl = `https://v6.exchangerate-api.com/v6/${API_EXCHANGE}/latest/COP`;
     try {
@@ -72,6 +79,7 @@ export class HistoryComponent implements OnInit {
     }
   }
 
+  //Se guarda el historial de la búsqueda realizada
   saveHistory() {
     const historyData:History = {
       country: this.country.name,
@@ -88,6 +96,8 @@ export class HistoryComponent implements OnInit {
     );
   }
 
+
+  //Se obtiene el historial de búsquedas realizadas
   async getHistory() {
     this.historyService.getHistory().subscribe(
       data=>{
@@ -97,6 +107,8 @@ export class HistoryComponent implements OnInit {
     );
   }
 
+
+  //Se inicializan los métodos para obtener el historial de consultas, la temperatura, la moneda, la tasa de cambio, y se guarda la consulta en el historial
   async ngOnInit() {
     await this.getHistory();
     await this.getTemperature();

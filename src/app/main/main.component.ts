@@ -10,64 +10,55 @@ import { Country } from '../place/models/country.interface';
 })
 export class MainComponent{
 
-  text: string = '¡Bienvenido a nuestra aplicación!';
-  translatedText: string = '';
-
+  //Se definen los componentes que se van a mostrar en la vista
   listCmponent = [
     {"id" : 0, "name" : "place"},
     {"id" : 1, "name" : "budget"},
     {"id" : 2, "name" : "history"}
   ];
 
+  //Se define el componente seleccionado
   componentSelected = this.listCmponent[0];
+
+  //Se define si se puede pasar al siguiente paso
   canNext = false;
+
+  //Se definen las variables que se van a enviar al componente hijo
   countrySelected: Country = {} as Country;
   citySelected: City = {} as City;
   budgetSelected: number = 0;
 
+  //Se definen las funciones para enviar los datos al componente hijo
   setCountry(country: Country) {
     this.countrySelected = country;
   }
-
   setCity(city: City) {
     this.citySelected = city;
   }
-
   setDataBudget(budget: number) {
     this.budgetSelected = budget;
   }
 
+  //Se define la función para validar si se puede pasar al siguiente paso
   nextValid(isValid: boolean) {
     if(isValid) {
       this.canNext = true;
     }
   }
 
+  //Se define la función para pasar al siguiente paso
   nextStep() {
     this.componentSelected = this.listCmponent[this.componentSelected.id +1];
     this.canNext = false;
   }
 
+  //Se define la función para regresar al paso anterior
   prevStep() {
     this.componentSelected = this.listCmponent[this.componentSelected.id-1];
   }
 
-  async translateText(targetLang: string) {
-    const url = 'https://libretranslate.com/translate';
-
-    try {
-      const response = await axios.post(url, {
-        q: this.text,
-        source: 'es',
-        target: targetLang,
-        format: 'text'
-      }, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      this.translatedText = response.data.translatedText;
-      console.log('Texto',this.translatedText);
-    } catch (error) {
-      console.error('Error al traducir:', error);
-    }
+  //Se define la función para regresar al primer paso
+  goToFirstPage(){
+    this.componentSelected = this.listCmponent[0];
   }
 }

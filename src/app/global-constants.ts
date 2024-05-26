@@ -1,3 +1,5 @@
+//Se definen las constantes globales de la aplicación
+
 export const API_URL = "http://localhost:8000/" ;
 
 export const API_URL_CITY = "cities";
